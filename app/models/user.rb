@@ -12,7 +12,7 @@ class User < ApplicationRecord
   NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
   validates_format_of :last_name, :first_name, with: NAME_REGEX, message: 'must be entered in full-width characters'
 
-  KANA_REGEX = /\A[ァ-ヶ]+\z/
+  KANA_REGEX = /\A[ァ-ヶー]+\z/
   validates_format_of :last_name_kana, :first_name_kana, with: KANA_REGEX,
                                                          message: 'must be entered in full-width-katakana characters'
 end
