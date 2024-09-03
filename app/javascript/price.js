@@ -14,3 +14,6 @@ const calc = () => {
   })
 }
 window.addEventListener("turbo:load", calc)
+document.addEventListener("turbo:render", calc)
+
+
