@@ -9,7 +9,16 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_delivery
 
-  validates :name, :info, :price, presence: true
-  validates :category_id, :sales_status_id, :shopping_fee_status_id, :prefecture_id, :scheduled_delivery_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :name, :info, presence: true
+  validates :category_id, :sales_status_id, :shopping_fee_status_id, :prefecture_id, :scheduled_delivery_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
+  validates :price, presence:true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "must be entered with the correct amount" }
+  validate :image_presence
+  
+  private
+  def image_presence
+    if self.image.attached? == false
+      self.errors.add(:image, "can't be blank")
+    end
+  end
 
 end
