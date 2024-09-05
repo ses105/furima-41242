@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :scheduled_delivery
 
   validates :name, :info, presence: true
-  validates :category_id, :sales_status_id, :shopping_fee_status_id, :prefecture_id, :scheduled_delivery_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
+  validates :category_id, :sales_status_id, :shopping_fee_status_id, :prefecture_id, :scheduled_delivery_id, presence: true, numericality: { only_integer: true, other_than: 1, message: "must be selected with the correct item" }
   validates :price, presence:true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "must be entered with the correct amount" }
   validate :image_presence
   
