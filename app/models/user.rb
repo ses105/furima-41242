@@ -16,6 +16,5 @@ class User < ApplicationRecord
   validates_format_of :last_name_kana, :first_name_kana, with: KANA_REGEX,
                                                          message: 'must be entered in full-width-katakana characters'
 
-
   has_many :items
 end

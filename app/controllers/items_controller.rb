@@ -1,13 +1,13 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: :new
+  before_action :authenticate_user!, except: :index
   def index
   end
 
   def new
-    @item = Item.new()
+    @item = Item.new
   end
 
-  def create  
+  def create
     @item = Item.new(params_item)
     if @item.save
       redirect_to root_path
@@ -15,10 +15,11 @@ class ItemsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   private
+
   def params_item
-    params.require(:item).permit(:name, :info, :price, :image, :category_id, :sales_status_id, :shopping_fee_status_id, :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :info, :price, :image, :category_id, :sales_status_id, :shopping_fee_status_id,
+                                 :prefecture_id, :scheduled_delivery_id).merge(user_id: current_user.id)
   end
 end
-
