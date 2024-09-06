@@ -6,8 +6,8 @@ const calc = () => {
     const profit = document.getElementById("profit");
 
     const priceVal = itemPrice.value;
-    const taxVal = Math.round(priceVal * 0.1);
-    const profitVal = Math.round(priceVal - taxVal);
+    const taxVal = Math.floor(priceVal * 0.1);
+    const profitVal = Math.floor(priceVal - taxVal);
     
     tax.innerHTML = taxVal.toLocaleString();
     profit.innerHTML = profitVal.toLocaleString();
