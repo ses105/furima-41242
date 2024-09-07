@@ -21,7 +21,7 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        ¥ 999,999,999
+        <%= "¥ #{@item.price.to_s(:delimited)}"%>
       </span>
       <span class="item-postage">
         <%= @item.shopping_fee_status.name %>
