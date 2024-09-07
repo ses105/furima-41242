@@ -34,6 +34,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    Item.destroy(params[:id])
+    redirect_to root_path
+  end
+
   private
 
   def params_item
