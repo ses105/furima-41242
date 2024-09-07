@@ -35,6 +35,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    return unless user_signed_in?
+
     Item.destroy(params[:id])
     redirect_to root_path
   end
