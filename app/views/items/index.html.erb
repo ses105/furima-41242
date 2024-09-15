@@ -133,15 +133,12 @@
         <%= link_to item_path(item) do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
-
-          <%# 商品が売れていればsold outを表示しましょう %>
-          <%# 購入機能未実装のため、一時的措置 %>
-          <% if false %>
+          
+          <% if item.order != nil %>
             <div class='sold-out'>
               <span>Sold Out!!</span>
             </div>
           <% end %>
-          <%# //商品が売れていればsold outを表示しましょう %>
 
         </div>
         <div class='item-info'>
