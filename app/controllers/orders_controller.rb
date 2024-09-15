@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
-  before_action :move_to_top, only: [:index, :create]
+  before_action :user_valid?, only: [:index, :create]
+  before_action :order_valid?, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -26,10 +27,14 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def move_to_top
-    redirect_to root_path if user_signed_in? && @item.user_id == current_user.id
+  def user_valid?
+    return unless user_signed_in? && @item.user_id == current_user.id
 
-    return unless user_signed_in? && !@item.order.nil?
+    redirect_to root_path
+  end
+
+  def order_valid?
+    return if user_signed_in? && @item.order.nil?
 
     redirect_to root_path
   end
