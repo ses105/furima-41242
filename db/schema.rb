@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_14_080023) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_15_054330) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_14_080023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_addresses_on_order_id"
+    t.index ["order_id"], name: "index_addresses_on_order_id_unique", unique: true
   end
 
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_14_080023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["item_id"], name: "index_orders_on_item_id_unique", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

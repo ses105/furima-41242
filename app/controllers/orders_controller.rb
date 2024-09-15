@@ -1,13 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only:[:index, :create]
+  before_action :get_item, only:[:index, :create]
+  before_action :move_to_top, only:[:index, :create]
+
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new()
   end
 
   def create
     @order_address = OrderAddress.new(params_order)
-    @item = Item.find(params[:item_id])
     if @order_address.valid?
       pay_item
       @order_address.save
@@ -20,6 +22,20 @@ class OrdersController < ApplicationController
   end
 
   private
+  def get_item
+    @item = Item.find(params[:item_id])
+  end
+  
+  def move_to_top
+    if user_signed_in? && @item.user_id == current_user.id
+      redirect_to root_path
+    end
+
+    if user_signed_in? && @item.order != nil
+      redirect_to root_path
+    end
+  end
+
   def params_order
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number)
     .merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id)
@@ -33,5 +49,7 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
+
+
 end
 
