@@ -4,6 +4,4 @@ class Order < ApplicationRecord
   has_one :address
 
   attr_accessor :token
-
-  validates :item_id, uniqueness: true
 end
