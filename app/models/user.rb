@@ -17,4 +17,5 @@ class User < ApplicationRecord
                                                          message: 'must be entered in full-width-katakana characters'
 
   has_many :items
+  has_many :orders
 end
